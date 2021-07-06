@@ -4,8 +4,6 @@ using Microsoft.Identity.Web;
 using System.Threading.Tasks;
 using TodoListClient.Services;
 using TodoListService.Models;
-using Newtonsoft.Json;
-using System.Collections.Generic;
 
 namespace TodoListClient.Controllers
 {
@@ -20,16 +18,9 @@ namespace TodoListClient.Controllers
 
         // GET: TodoList
         [AuthorizeForScopes(ScopeKeySection = "TodoList:TodoListScope")]
-        public async Task<IEnumerable<Todo>> Index()
+        public async Task<ActionResult> Index()
         {
-            //return View(await _todoListService.GetAsync());
-
-            System.Console.WriteLine("--TodoListcontroller Index--");
-
-            var content = await _todoListService.GetAsync();
-            IEnumerable<Todo> todolist = JsonConvert.DeserializeObject<IEnumerable<Todo>>(content);
-
-            return todolist;
+            return View(await _todoListService.GetAsync());
         }
 
         // GET: TodoList/Details/5

@@ -32,7 +32,7 @@ namespace TodoListClient.Services
 {
     public interface ITodoListService
     {
-        Task<string> GetAsync();
+        Task<IEnumerable<Todo>> GetAsync();
 
         Task<Todo> GetAsync(int id);
 

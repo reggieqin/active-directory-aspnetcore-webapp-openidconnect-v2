@@ -97,32 +97,16 @@ namespace TodoListClient.Services
             throw new HttpRequestException($"Invalid status code in the HttpResponseMessage: {response.StatusCode}.");
         }
 
-        //public async Task<IEnumerable<Todo>> GetAsync()
-        //{
-        //    await PrepareAuthenticatedClient();
-        //    var response = await _httpClient.GetAsync($"{ _TodoListBaseAddress}/api/todolist");
-        //    if (response.StatusCode == HttpStatusCode.OK)
-        //    {
-        //        var content = await response.Content.ReadAsStringAsync();
-        //        IEnumerable<Todo> todolist = JsonConvert.DeserializeObject<IEnumerable<Todo>>(content);
-
-        //        return todolist;
-        //    }
-
-        //    throw new HttpRequestException($"Invalid status code in the HttpResponseMessage: {response.StatusCode}.");
-        //}
-
-        public async Task<string> GetAsync()
+        public async Task<IEnumerable<Todo>> GetAsync()
         {
-            System.Console.WriteLine("--TodoListService GetAsync--");
-
             await PrepareAuthenticatedClient();
-            var response = await _httpClient.GetAsync($"{ _TodoListBaseAddress}/api/todolist");
+            var response = await _httpClient.GetAsync($"{ _TodoListBaseAddress}/TodoList");
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var content = await response.Content.ReadAsStringAsync();
+                IEnumerable<Todo> todolist = JsonConvert.DeserializeObject<IEnumerable<Todo>>(content);
 
-                return content;
+                return todolist;
             }
 
             throw new HttpRequestException($"Invalid status code in the HttpResponseMessage: {response.StatusCode}.");
