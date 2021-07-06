@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using TodoListService.Models;
+using Microsoft.Identity.Web.Resource;
 
 namespace TodoListService.Controllers
 {
@@ -18,6 +19,8 @@ namespace TodoListService.Controllers
         private static readonly Dictionary<int, Todo> TodoStore = new Dictionary<int, Todo>();
 
         private readonly IHttpContextAccessor _contextAccessor;
+
+        private static readonly string[] scopeRequiredByAPI = new string[] { "access_as_user" };
 
         public TodoListController(IHttpContextAccessor contextAccessor)
         {
@@ -35,6 +38,7 @@ namespace TodoListService.Controllers
         [HttpGet]
         public IEnumerable<Todo> Get()
         {
+            HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByAPI);
             string owner = User.Identity.Name;
             return TodoStore.Values.Where(x => x.Owner == owner);
         }

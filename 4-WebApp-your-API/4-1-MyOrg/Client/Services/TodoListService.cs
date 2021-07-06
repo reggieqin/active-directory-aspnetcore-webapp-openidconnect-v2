@@ -41,8 +41,8 @@ namespace TodoListClient.Services
             _httpClient = httpClient;
             _tokenAcquisition = tokenAcquisition;
             _contextAccessor = contextAccessor;
-            _TodoListScope = configuration["TodoList:TodoListScope"];
-            _TodoListBaseAddress = configuration["TodoList:TodoListBaseAddress"];
+            _TodoListScope = configuration["DownstreamAPI:Scope"];
+            _TodoListBaseAddress = configuration["DownstreamAPI:BaseURL"];
         }
 
         public async Task<Todo> AddAsync(Todo todo)
